@@ -76,6 +76,10 @@ INSTALLED_APPS = (
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.sites',
+
+    'django_extensions',
+
+    'django_twitter_oauth_test.main',
 )
 
 try:
