@@ -1,1 +1,4 @@
 Follow the installation instructions in django-twitter-oauth's README.
+
+You'll have to remove 'django_extensions' from INSTALLED_APPS in
+settings.py if you don't have the Django extensions installed.
