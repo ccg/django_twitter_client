@@ -7,6 +7,7 @@ from django.conf.urls.defaults import *
 urlpatterns = patterns('',
     # Example:
     # (r'^django_twitter_oauth_test/', include('django_twitter_oauth_test.foo.urls')),
+    (r'^$', 'django_twitter_oauth_test.main.views.index'),
 
     # Uncomment the admin/doc line below and add 'django.contrib.admindocs' 
     # to INSTALLED_APPS to enable admin documentation:
