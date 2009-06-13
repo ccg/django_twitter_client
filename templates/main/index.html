@@ -6,6 +6,12 @@
 
 {% if request.user.get_profile.can_tweet %}
 
+  <div id="update-response">
+    {% if update_response.error %}
+      <font color="red">{{ update_response.error }}</font>
+    {% endif %}
+  </div>
+
   <div id="tweet_form">
     <form action="" method="POST">
       {{ form.as_p }}

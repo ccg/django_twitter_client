@@ -35,6 +35,8 @@ def index(request):
             json = update_status(CONSUMER, conn, access_token, tweet)
 
             logging.debug("update_status JSON response: '%s'" % json)
+            update_response = simplejson.loads(json)
+
             # Submitted form was processed, so create a new, blank one.
             form = TwitterForm()
         else:
