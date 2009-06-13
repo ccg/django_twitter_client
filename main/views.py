@@ -3,7 +3,7 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import render_to_response
 from django.template import RequestContext
 from django_twitter_oauth_test.main.forms import TwitterForm
-from django.http import HttpResponse, HttpResponseRedirect
+from django.http import HttpResponse, HttpResponseRedirect, HttpResponseServerError
 from twitter_app.utils import *
 import twitter_app.oauth as oauth
 # FIXME refactor this http-connection stuff
@@ -25,8 +25,23 @@ def index(request):
                 logging.error("Length: %d" % tweetlen)
                 return HttpResponse("TwitterForm validation failed!"
                                     " Check logs.")
-            # TODO send tweet here.
             logging.debug("tweet='%s'" % tweet)
+            profile = request.user.get_profile()
+            access_token_string = profile.oauth_token
+            if not access_token_string:
+                logging.error("no access token string for user '%s'" %
+                               request.user)
+                return HttpResponseServerError("missing access token string")
+            access_token = oauth.OAuthToken.from_string(access_token_string)
+            if not access_token:
+                logging.error("no access token for user '%s'" % request.user)
+                return HttpResponseServerError("access token fail")
+
+            conn = httplib.HTTPSConnection(SERVER)
+            json = update_status(CONSUMER, conn, access_token, tweet)
+            conn.close()
+
+            logging.debug("JSON response: '%s'" % json)
             # Submitted form was processed, so create a new, blank one.
             form = TwitterForm()
         else:
