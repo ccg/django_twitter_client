@@ -13,8 +13,17 @@
     </form>
   </div>
 
+  <hr>
+
   <div id="tweets">
-    <!-- tweets go here -->
+    <table>
+    {% for tweet in timeline %}
+      <tr>
+        <td><img src="{{ tweet.user.profile_image_url }}"></td>
+        <td>{{ tweet.text }}</td>
+      </tr>
+    {% endfor %}
+    </table>
   </div>
 
 {% else %}
