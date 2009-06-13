@@ -1,5 +1,12 @@
 # Django settings for django_twitter_oauth_test project.
 
+import logging
+
+logging.basicConfig(
+    level = logging.DEBUG,
+    format = '%(levelname)s %(asctime)s %(filename)s:%(lineno)s in %(funcName)s()\n%(message)s\n',
+)
+
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 
