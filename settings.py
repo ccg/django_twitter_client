@@ -89,7 +89,7 @@ INSTALLED_APPS = (
     'django_twitter_oauth_test.main',
 )
 
-AUTH_PROFILE_MODULE = "main.userprofile"
+AUTH_PROFILE_MODULE = "main.UserProfile"
 
 try:
     from localsettings import *
