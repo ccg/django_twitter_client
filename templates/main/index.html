@@ -3,5 +3,26 @@
 {% comment %} vim: set ft=htmldjango sw=2 sts=2 : {% endcomment %}
 
 {% block content %}
-hello user: '{{ user }}'
+
+{% if request.user.get_profile.can_tweet %}
+
+  <div id="tweet_form">
+    <form action="" method="POST">
+      {{ form.as_p }}
+      <input type="submit" value="Submit" />
+    </form>
+  </div>
+
+  <div id="tweets">
+    <!-- tweets go here -->
+  </div>
+
+{% else %}
+
+  <div id="twitter_connect">
+    <a href="/twitter/auth">Click here to authorize Twitter connection.</a>
+  </div>
+
+{% endif %}
+
 {% endblock %}
