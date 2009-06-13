@@ -8,6 +8,8 @@ urlpatterns = patterns('',
     # Example:
     # (r'^django_twitter_oauth_test/', include('django_twitter_oauth_test.foo.urls')),
     (r'^$', 'django_twitter_oauth_test.main.views.index'),
+    (r'twitter', include('twitter_app.urls')),
+    (r'^accounts/login/$', 'django.contrib.auth.views.login'),
 
     # Uncomment the admin/doc line below and add 'django.contrib.admindocs' 
     # to INSTALLED_APPS to enable admin documentation:

@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% comment %} vim: set ft=htmldjango sw=2 sts=2 : {% endcomment %}
+
+{% block subtitle %}Login -{% endblock %}
+
+{% block content %}
+
+{% if form.errors %}
+<h3>Username or password not valid.</h3>
+{% endif %}
+
+<form method="post" action="{% url django.contrib.auth.views.login %}">
+  <table>
+    <tr>
+      <td>{{ form.username.label_tag }}</td>
+      <td>{{ form.username }}</td>
+    </tr>
+    <tr>
+      <td>{{ form.password.label_tag }}</td>
+      <td>{{ form.password }}</td>
+    </tr>
+  </table>
+  <input type="submit" value="login" />
+  <input type="hidden" name="next" value="{{ next }}" />
+</form>
+
+{% endblock %}
