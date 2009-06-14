@@ -32,10 +32,14 @@ def index(request):
             tweet = request.POST.get('tweet', '')
             logging.debug("tweet='%s'" % tweet)
 
-            json = update_status(CONSUMER, conn, access_token, tweet)
+            update_error = None
+            try:
+                json = update_status(CONSUMER, conn, access_token, tweet)
 
-            logging.debug("update_status JSON response: '%s'" % json)
-            update_response = simplejson.loads(json)
+                logging.debug("update_status JSON response: '%s'" % json)
+                update_response = simplejson.loads(json)
+            except TwitterException, update_error:
+                logging.exception(update_error)
 
             # Submitted form was processed, so create a new, blank one.
             form = TwitterForm()
@@ -43,8 +47,16 @@ def index(request):
             logging.debug("got invalid form")
     else:
         form = TwitterForm()
-    timeline_json = friends_timeline(CONSUMER, conn, access_token)
-    timeline = simplejson.loads(timeline_json)
+
+    timeline_error = None
+    try:
+        timeline_json = friends_timeline(CONSUMER, conn, access_token)
+        logging.debug("friends_timeline JSON reponse: '%s'" % timeline_json)
+        timeline = simplejson.loads(timeline_json)
+    except TwitterException, timeline_error:
+        logging.exception(timeline_error)
+        timeline = None
+
     if timeline and len(timeline) > 0:
         output = StringIO.StringIO()
         pp = pprint.PrettyPrinter(stream=output, indent=2)

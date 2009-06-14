@@ -8,8 +8,22 @@
 
   <div id="update-response">
     {% if update_response.error %}
+      <b>Twitter error:</b>
       <font color="red">{{ update_response.error }}</font>
     {% endif %}
+  </div>
+
+  <div id="update-error">
+  {% if update_error %}
+    <p>
+      <b>Twitter exception:</b>
+      <font color="red">
+        {{ update_error.status }}:
+        {{ update_error.reason }}<br>
+        {{ update_error.payload }}
+      </font>
+    </p>
+  {% endif %}
   </div>
 
   <div id="tweet_form">
@@ -20,6 +34,25 @@
   </div>
 
   <hr>
+
+  <div id="twitter_connect">
+    <a href="/twitter/auth">Click here to change Twitter authorization.</a>
+  </div>
+
+  <hr>
+
+  <div id="timeline-error">
+    {% if timeline_error %}
+    <p>
+      <b>Twitter Timeline Error:</b>
+      <font color="red">
+        {{ timeline_error.status }}:
+        {{ timeline_error.reason }}<br>
+        {{ timeline_error.payload }}
+      </font>
+    </p>
+    {% endif %}
+  </div>
 
   <div id="tweets">
     <table>
