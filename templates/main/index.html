@@ -2,6 +2,14 @@
 
 {% comment %} vim: set ft=htmldjango sw=2 sts=2 : {% endcomment %}
 
+{% block subtitle %}
+  {% if request.user.get_profile.can_tweet %}
+    Try tweeting -
+  {% else %}
+    You must authenticate first -
+  {% endif %}
+{% endblock %}
+
 {% block content %}
 
 <p>
