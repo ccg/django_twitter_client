@@ -1,4 +1,4 @@
-# Django settings for django_twitter_oauth_test project.
+# Django settings for django_twitter_client project.
 
 import logging
 
@@ -70,7 +70,7 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.auth.middleware.AuthenticationMiddleware',
 )
 
-ROOT_URLCONF = 'django_twitter_oauth_test.urls'
+ROOT_URLCONF = 'django_twitter_client.urls'
 
 TEMPLATE_DIRS = (
     # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
@@ -86,7 +86,7 @@ INSTALLED_APPS = (
 
     'django_extensions',
 
-    'django_twitter_oauth_test.main',
+    'django_twitter_client.main',
 )
 
 AUTH_PROFILE_MODULE = "main.UserProfile"
