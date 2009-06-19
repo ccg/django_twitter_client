@@ -2,7 +2,7 @@
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render_to_response
 from django.template import RequestContext
-from django_twitter_oauth_test.main.forms import TwitterForm
+from django_twitter_client.main.forms import TwitterForm
 from django.http import HttpResponse, HttpResponseRedirect, HttpResponseServerError
 
 from twitter_app.utils import *
@@ -25,7 +25,7 @@ def index(request):
                                   context_instance=RequestContext(request))
     access_token_string = profile.oauth_token
     access_token = oauth.OAuthToken.from_string(access_token_string)
-    conn = httplib.HTTPSConnection(SERVER)
+    conn = httplib.HTTPConnection(SERVER)
     if request.method == "POST":
         form = TwitterForm(request.POST)
         if form.is_valid():
@@ -51,7 +51,7 @@ def index(request):
     timeline_error = None
     try:
         timeline_json = friends_timeline(CONSUMER, conn, access_token)
-        logging.debug("friends_timeline JSON reponse: '%s'" % timeline_json)
+        #logging.debug("friends_timeline JSON reponse: '%s'" % timeline_json)
         timeline = simplejson.loads(timeline_json)
     except TwitterException, timeline_error:
         logging.exception(timeline_error)
@@ -72,7 +72,7 @@ def index(request):
 
 @login_required
 def return_(request):
-    conn = httplib.HTTPSConnection(SERVER)
+    conn = httplib.HTTPConnection(SERVER)
     unauthed_token = request.session.get('unauthed_token', None)
     if not unauthed_token:
         return HttpResponse("No un-authed token cookie")
