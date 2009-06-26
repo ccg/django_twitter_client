@@ -95,3 +95,14 @@ try:
     from localsettings import *
 except ImportError:
     pass
+
+import zoauth
+TWITTER = zoauth.provider.ServiceProvider(
+    'Twitter',
+    'http://twitter.com/oauth/request_token',
+    'http://twitter.com/oauth/authorize',
+    'http://twitter.com/oauth/access_token',
+    realm='Twitter API',
+)
+
+CONSUMER = TWITTER.Consumer(CONSUMER_KEY, CONSUMER_SECRET)
